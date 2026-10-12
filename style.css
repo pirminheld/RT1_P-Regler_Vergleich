@@ -2,3 +2,5 @@
 .chart .axis,.chart .grid{fill:none}.controls label>span{min-width:0}
 .header-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}dialog{border:1px solid var(--line);border-radius:16px;padding:28px;max-width:min(620px,94vw);max-height:94vh;overflow:auto;color:var(--ink);text-align:center;box-shadow:0 20px 80px #102e4540}dialog::backdrop{background:#102e45aa}.qr-close{display:block;margin:0 0 20px auto}.qr-image{display:block;width:min(360px,100%);height:auto;margin:12px auto}.qr-link{display:block;overflow-wrap:anywhere;color:var(--accent);font-weight:650}
 .loop-card{margin-top:20px}.loop-scroll{overflow-x:auto}.loop-scroll svg{min-width:720px}.loop-labels text{font-size:17px}.signal-y{fill:none;stroke:#a45e06;stroke-width:3}.signal-x{fill:none;stroke:#087f7c;stroke-width:3}.shared-note{background:#e0eeea;padding:16px 22px;border-radius:9px}nav{flex-wrap:wrap}@media(max-width:760px){nav .tab{flex:1 1 45%}.loop-scroll svg{min-width:760px}}
+
+.loop-live text{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}.loop-live .block-live{font-size:12px}
