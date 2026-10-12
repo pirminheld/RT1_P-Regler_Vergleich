@@ -39,13 +39,14 @@ function renderTank(){
  const start=Math.max(0,t-60),end=Math.max(60,t),c=chartFrame('Zeit t / s','Wasserstand / cm',start,end,0,100),points=history.filter(p=>p.t>=start);
  function line(key){return points.map((p,i)=>(i?'L':'M')+c.X(p.t).toFixed(2)+' '+c.Y(p[key]).toFixed(2)).join(' ');}
  $('m-chart').innerHTML=c.s+`<path d="${line('w')}" fill="none" stroke="#2c60b0" stroke-width="2" stroke-dasharray="7 4"/><path d="${line('h')}" fill="none" stroke="#087f7c" stroke-width="3"/><circle cx="${c.X(t)}" cy="${c.Y(h)}" r="4" fill="#087f7c"/>`;
+ if(window.renderElectronicTank)window.renderElectronicTank();
 }
 function setRunning(value){running=value;last=0;acc=0;$('tank').classList.toggle('running',running);text('play',running?'Pause':'Simulation starten');renderTank();}
 function resetTank(disturb=false){$('mw').value=60;$('mk').value=.5;$('mq').value=4;h=disturb?56:52;t=0;history=[{t:0,h,w:60}];sample=0;setRunning(disturb);}
 for(const id of ['mw','mk','mq'])$(id).addEventListener('input',()=>{history.push({t,h,w:n('mw')});renderTank();});
 $('play').addEventListener('click',()=>setRunning(!running));$('reset-tank').addEventListener('click',()=>resetTank());$('disturb').addEventListener('click',()=>resetTank(true));
 function animate(now){if(running){if(last){acc+=Math.min((now-last)/1000,.1);while(acc>=.02){h=Regler.tankStep(h,n('mw'),n('mk'),n('mq'),.02);t+=.02;acc-=.02;sample+=.02;if(sample>=.1){history.push({t,h,w:n('mw')});sample=0;}}history=history.filter(p=>p.t>=t-61);renderTank();}last=now;}requestAnimationFrame(animate);}
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.view').forEach(s=>s.hidden=s.id!==b.dataset.view);document.querySelectorAll('[data-view]').forEach(tab=>{tab.classList.toggle('active',tab===b);tab.setAttribute('aria-pressed',tab===b?'true':'false');});if(b.dataset.view!=='mechanical')setRunning(false);}));
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.view').forEach(s=>s.hidden=s.id!==b.dataset.view);document.querySelectorAll('[data-view]').forEach(tab=>{tab.classList.toggle('active',tab===b);tab.setAttribute('aria-pressed',tab===b?'true':'false');});setRunning(false);}));
 $('projector').addEventListener('click',()=>{const active=document.body.classList.toggle('projector');$('projector').setAttribute('aria-pressed',String(active));text('projector',active?'Standardansicht':'Beameransicht');});
 renderElectronic();renderTank();requestAnimationFrame(animate);
 
@@ -54,4 +55,5 @@ renderElectronic();renderTank();requestAnimationFrame(animate);
 
 document.getElementById("show-qr").addEventListener("click",()=>document.getElementById("qr-dialog").showModal());
 document.getElementById("close-qr").addEventListener("click",()=>document.getElementById("qr-dialog").close());
+
 
