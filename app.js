@@ -51,3 +51,7 @@ renderElectronic();renderTank();requestAnimationFrame(animate);
 
 
 
+
+document.getElementById("show-qr").addEventListener("click",()=>document.getElementById("qr-dialog").showModal());
+document.getElementById("close-qr").addEventListener("click",()=>document.getElementById("qr-dialog").close());
+
